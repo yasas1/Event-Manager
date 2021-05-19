@@ -1,5 +1,6 @@
 package com.yakacreation.eventmanager.controllers;
 
+import com.yakacreation.eventmanager.exception.EmployeeExceptions;
 import com.yakacreation.eventmanager.model.Employee;
 import com.yakacreation.eventmanager.service.EmployeeService;
 import com.yakacreation.eventmanager.service.impl.EmployeeServiceImpl;
@@ -27,8 +28,18 @@ public class EmployeeController {
 
     @GetMapping("/find/{id}")
     public ResponseEntity<Employee> getEmployeeById(@PathVariable("id") Long id){
-        Employee employee = employeeService.findEmployeeById(id);
-        return  new ResponseEntity<>(employee, HttpStatus.OK);
+        ResponseEntity result;
+        try{
+            Employee employee = employeeService.findEmployeeById(id);
+            result =  new ResponseEntity<>(employee, HttpStatus.OK);
+        }
+        catch (EmployeeExceptions.UserNotFoundException exception){
+            return new ResponseEntity(exception.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+        catch (Exception exception){
+            return new ResponseEntity(exception.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+        return result;
     }
 
     @PostMapping("/add")

@@ -13,16 +13,14 @@ public class Employee implements Serializable {
     private String name;
     private String email;
     private String phone;
-    private String position;
 
     public Employee() {
     }
 
-    public Employee(String name, String email, String phone, String position) {
+    public Employee(String name, String email, String phone) {
         this.name = name;
         this.email = email;
         this.phone = phone;
-        this.position = position;
     }
 
     public Long getId() {
@@ -57,14 +55,6 @@ public class Employee implements Serializable {
         this.phone = phone;
     }
 
-    public String getPosition() {
-        return this.position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
-    }
-
     @Override
     public String toString() {
         return "Employee{" +
@@ -72,7 +62,6 @@ public class Employee implements Serializable {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
-                ", position='" + position + '\'' +
                 '}';
     }
 
